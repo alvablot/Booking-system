@@ -15,7 +15,7 @@ const fetchBooks = "SELECT * FROM books";
 const bookBookingId = "UPDATE books";
 */
 
-const fetchBookingsTable = "SELECT * FROM bookings";
+const fetchBookingsTable = "SELECT * FROM bookings ORDER BY id DESC";
 const insertBookingRow =
   "INSERT INTO bookings (headline, start, stop, info, user, customer, room)  VALUES(?, ?, ?, ?, ?, ?, ?)";
 const deleteBookingRow = "DELETE FROM bookings WHERE id = ?";

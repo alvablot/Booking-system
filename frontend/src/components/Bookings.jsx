@@ -2,17 +2,10 @@ import React, { useState, useEffect } from "react";
 
 function Bookings(props) {
   let { allBookings } = props;
-  /*
-  let [allBookings, setAllBookings] = useState([]);
-  function fetchBookings() {
-    useEffect(() => {
-      fetch("http://localhost:4000/bookings")
-        .then((res) => res.json())
-        .then((json) => setAllBookings(json));
-    }, []);
-  }
-  */
   props.fetchBookings();
+  function handleDelete(id) {
+    props.deleteBooking(id);
+  }
   return (
     <div className="list">
       <h1>Bookings</h1>
@@ -52,6 +45,7 @@ function Bookings(props) {
             </div>
             <div key={`edit${item.id}`}>
               <button>Edit</button>
+              <button onClick={() => {handleDelete(item.id)}}>Delete</button>
             </div>
           </div>
         );

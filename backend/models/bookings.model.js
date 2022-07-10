@@ -63,8 +63,9 @@ async function addOne(data) {
 
 async function deleteOne(id) {
   const query = `${fetchBookingsTable} WHERE id = '${id}'`;
-  let result = await initTable(query);
-  if (result.length < 1) return 404;
+  //let result = await initTable(query);  
+  //console.log(result);
+  //if (result.length < 1) return 404;
   db.run(deleteBookingRow, id, (err) => {});
   users = initTable(fetchBookingsTable);
   return users;

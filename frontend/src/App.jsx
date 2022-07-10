@@ -2,19 +2,22 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Bookings from "./components/Bookings";
 import InputBox from "./components/InputBox";
+const url = "http://localhost:4000";
 
 function App() {
   let [allBookings, setAllBookings] = useState([]);
+  let [bookingId, setBookingId] = useState("");
   function fetchBookings() {
     useEffect(() => {
-      fetch("http://localhost:4000/bookings")
+      fetch(`${url}/bookings`)
         .then((res) => res.json())
         .then((json) => setAllBookings(json));
     }, []);
   }
+
   function addBooking(elements) {
     console.log(elements.customer);
-    fetch("http://localhost:4000/booking", {
+    fetch(`${url}/booking`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -25,19 +28,29 @@ function App() {
         user: elements.user,
         customer: elements.customer,
         room: elements.room,
-      })
+      }),
     })
-    .then((res) => res.json())
-    .then((json) => setAllBookings(json))
+      .then((res) => res.json())
+      .then((json) => setAllBookings(json));
   }
+
+  function deleteBooking(id) {
+    fetch(`${url}/booking/${id}`, { method: "DELETE" })
+      .then((res) => res.json())
+      .then((json) => setAllBookings(json));
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <InputBox addBooking={addBooking} />
-        <Bookings fetchBookings={fetchBookings} allBookings={allBookings} />
+        <Bookings
+          fetchBookings={fetchBookings}
+          deleteBooking={deleteBooking}
+          allBookings={allBookings}
+        />
       </header>
     </div>
   );
 }
-
 export default App;

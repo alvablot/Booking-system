@@ -35,7 +35,7 @@ function InputBox(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(Object.keys(inputs).length < 9) return
+    //if(Object.keys(inputs).length < 9) return
     //console.log(Object.keys(inputs).length);
     props.addBooking(inputs);
   };

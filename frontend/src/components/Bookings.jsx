@@ -18,37 +18,40 @@ function Bookings(props) {
       <h1>Bookings</h1>
       {allBookings.map((item, i) => {
         return (
-          <div key={`book${i}`} className="booking">
-            <div key={`id${i}`}>
+          <div key={`book${item.id}`} className="booking">
+            <div key={`id${item.id}`}>
               <b>ID: </b>
               {item.id}
             </div>
-            <div key={`headline${i}`}>
+            <div key={`headline${item.id}`}>
               <b>{item.headline}</b>
             </div>
-            <div key={`start${i}`}>
+            <div key={`start${item.id}`}>
               <b>From: </b>
               {item.start}
             </div>
-            <div key={`stop${i}`}>
+            <div key={`stop${item.id}`}>
               <b>To: </b>
               {item.stop}
             </div>
-            <div key={`info${i}`}>
+            <div key={`info${item.id}`}>
               <b>Info: </b>
               {item.info}
             </div>
-            <div key={`user${i}`}>
+            <div key={`user${item.id}`}>
               <b>User: </b>
               {item.user}
             </div>
-            <div key={`customer${i}`}>
+            <div key={`customer${item.id}`}>
               <b>Customer: </b>
               {item.customer}
             </div>
-            <div key={`room${i}`}>
+            <div key={`room${item.id}`}>
               <b>Room: </b>
               {item.room}
+            </div>
+            <div key={`edit${item.id}`}>
+              <button>Edit</button>
             </div>
           </div>
         );

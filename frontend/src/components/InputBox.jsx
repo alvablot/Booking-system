@@ -35,7 +35,8 @@ function InputBox(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(Object.keys(inputs).length);
+    if(Object.keys(inputs).length < 9) return
+    //console.log(Object.keys(inputs).length);
     props.addBooking(inputs);
   };
   
@@ -66,7 +67,7 @@ function InputBox(props) {
         type="time"
         id="startTime"
         name="startTime"
-        value={inputs.startTime || timeStamp}
+        value={inputs.startTime || "10:00"}
         onChange={handleChange}
       ></input>
       <br />
@@ -83,7 +84,7 @@ function InputBox(props) {
         type="time"
         id="stopTime"
         name="stopTime"
-        value={inputs.stopTime || timeStamp}
+        value={inputs.stopTime || "18:00"}
         onChange={handleChange}
       ></input>
       <br />
@@ -100,11 +101,11 @@ function InputBox(props) {
       <br />
       <label htmlFor="room">Room</label>
       <select id="room" name="room" onChange={handleChange}>
-        <option value="room">Room</option>
-        <option value="room1">room1</option>
-        <option value="room2">room2</option>
-        <option value="room3">room3</option>
-        <option value="room4">room4</option>
+        <option value="Room">Room</option>
+        <option value="Room1">Room1</option>
+        <option value="Room2">Room2</option>
+        <option value="Room3">Room3</option>
+        <option value="Room4">Room4</option>
       </select>
       <label htmlFor="user">User</label>
       <input
@@ -118,10 +119,10 @@ function InputBox(props) {
       <label htmlFor="customer">Customer</label>
       <select id="customer" name="customer" onChange={handleChange}>
         <option value="Chose Customer">Chose Customer</option>
-        <option value="new customer">New customer</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
+        <option value="New customer">New customer</option>
+        <option value="Saab">Saab</option>
+        <option value="Mercedes">Mercedes</option>
+        <option value="Audi">Audi</option>
       </select>
       <br />
       <button type="submit" className="button">

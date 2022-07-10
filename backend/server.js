@@ -10,9 +10,11 @@ app.use(cors());
 app.use(express.json());
 
 const bookingsRouter = require("./routers/bookings.router");
+const usersRouter = require("./routers/users.router");
 
 //app.use(log);
 app.use(bookingsRouter);
+app.use(usersRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

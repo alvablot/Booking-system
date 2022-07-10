@@ -22,13 +22,13 @@ const db = new sqlite3.Database(dbFile, (error) => {
     room VARCHAR (255))
   `;
 
- // if (!exists) {
-    db.run(bookingStmt, (error) => {
-      if (error) {
-        //console.error(error.message);
-        //throw error;
-      } else {
-        const insertBooking = `INSERT INTO bookings (
+  // if (!exists) {
+  db.run(bookingStmt, (error) => {
+    if (error) {
+      //console.error(error.message);
+      //throw error;
+    } else {
+      const insertBooking = `INSERT INTO bookings (
         headline, 
         start, 
         stop, 
@@ -38,18 +38,41 @@ const db = new sqlite3.Database(dbFile, (error) => {
         room
         
         ) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-        db.run(insertBooking, [
-          "Booking Headline",
-          "2022-01-02 16:00:00",
-          "2022-01-03 19:41:22",
-          "Information",
-          "User",
-          "Customer Corp",
-          "Room"
-        ]);
-      }
-    });
- // }
+      db.run(insertBooking, [
+        "Booking Headline",
+        "2022-01-02 16:00:00",
+        "2022-01-03 19:41:22",
+        "Information",
+        "User",
+        "Customer Corp",
+        "Room",
+      ]);
+    }
+  });
+
+  const userStmt = `CREATE TABLE users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      username VARCHAR (255),
+      password VARCHAR (255))
+    `;
+
+  // if (!exists) {
+  db.run(userStmt, (error) => {
+    if (error) {
+      //console.error(error.message);
+      //throw error;
+    } else {
+      const insertUser = `INSERT INTO users (
+            username, 
+            password
+          ) VALUES (?, ?)`;
+      db.run(insertUser, [
+        "Petter",
+        "666"
+      ]);
+    }
+  });
+  // }
 });
 
 module.exports = db;

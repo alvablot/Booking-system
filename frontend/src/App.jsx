@@ -1,11 +1,16 @@
-import { useState, useEffect } from "react";
 import "./App.css";
+import { useState, useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { allBookingsState } from "./recoil/allBookings/atom";
+import { allTimeState } from "./recoil/allTime/atom";
 import Bookings from "./components/Bookings";
 import InputBox from "./components/InputBox";
+import Timetable from "./components/Timetable";
 const url = "http://localhost:4000";
 
 function App() {
-  let [allBookings, setAllBookings] = useState([]);
+  let [allBookings, setAllBookings] = useRecoilState(allBookingsState);
+ 
   let [bookingId, setBookingId] = useState("");
   function fetchBookings() {
     useEffect(() => {
@@ -16,7 +21,6 @@ function App() {
   }
 
   function addBooking(elements) {
-    console.log(elements.customer);
     fetch(`${url}/booking`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -44,6 +48,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <InputBox addBooking={addBooking} />
+        <Timetable />
+        <br />
         <Bookings
           fetchBookings={fetchBookings}
           deleteBooking={deleteBooking}

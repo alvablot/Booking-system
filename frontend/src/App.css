@@ -2,37 +2,156 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  font-family: "Fira Mono", monospace;
 }
 body {
-  background-color: #282c34;
+  background-color: #211919;
 }
 .App {
   text-align: left;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #0e0b0b;
   font-size: calc(10px + 1vmin);
   color: white;
   margin: 0 auto;
-  max-width: 800px;
+  margin-top: 5vh;
+  max-width: 980px;
+  padding: 5vh;
+  border-radius: 8px;
+  border: 2px solid #785f5f;
+  display: flexbox;
+  align-items: center;
 }
 
 .App-link {
-  color: #61dafb;
+  color: #785f5f;
 }
 .booking {
   margin: 15px;
 }
-button,
+.dayRow {
+  background-color: #282c34;
+  margin: 2px;
+  padding: 4px;
+}
+.day {
+  background-color: #342828;
+  margin: 2px;
+  width: 12%;
+  padding: 3px;
+}
+.activeDay {
+  background-color: #e01529;
+  margin: 2px;
+  width: 12%;
+  padding: 4px;
+}
+.time {
+  position: relative;
+  background-color: #342828;
+  margin: 1px;
+  padding: 4px;
+  width: 8%;
+}
+#close {
+  display: block;
+  text-align: right;
+  position: relative;
+  top: -70px;
+}
+a {color: white; text-decoration: none;}
+#inputBox {
+  background-color: #211919;
+  /*position: fixed;*/
+  top: 10px;
+  border-radius: 8px;
+  border: 1px solid #8d6c6c;
+  margin: auto;
+  width: 875px;
+  padding: 15px;
+  z-index:2;
+  /*display: none;*/
+}
+.date-label {
+  width: 50px;
+}
+.input-wrap {
+  display: inline-flex;
+  height: 50px;
+  margin-bottom: 95px;
+}
+#info {
+  height: 135px;
+}
+.timetable {
+  padding: 4px;
+  margin: auto;
+}
+#timetable-wrap {
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  
+}
+h1 {
+  color: white;
+  margin-top: -5px;
+}
 input,
 select,
-textarea,
-label {
-  font-size: calc(10px + 1vmin);
-  margin: 5px;
+textarea {
+  background-color: #342828;
+  border-radius: 8px;
+  border: 2px solid #8d6c6c;
+  color: #ccabab;
+  padding: 8px;
+  font-size: 1rem;
+  text-align: center;
+  font-weight: bold;
+  width: 180px;
+  margin: 4px;
+}
+textarea {
+  text-align: left;
+}
+button {
+  background-color: #0f0c0c;
+  border-radius: 8px;
+  border: 2px solid #443636;
+  color: #8d6c6c;
+  padding: 8px;
+  font-size: 1rem;
+  text-align: center;
+  font-weight: bold;
+  width: 180px;
+  margin: 4px;
+}
+button:hover {
+  background-color: #cec0c0;
+  border: 2px solid #ffffff;
+  color: #251a1a;
+}
+table {
+  background-color: #8d6c6c;
+}
+label,
+td {
+  font-size: calc(6px + 1vmin);
+  margin: 0px;
+  background-color: #342828;
+  text-align: center;
+}
+label {background-color: #211919;}
+td:hover {
+  background-color: #cec0c0;
+  color: #251a1a;
 }
 b {
   color: #747474;
+}
+label {
+  display: inline-block;
+  width: 150px;
 }

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { allBookingsState } from "../recoil/allBookings/atom";
 
 function Bookings(props) {
   let { allBookings } = props;

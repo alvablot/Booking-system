@@ -101,14 +101,14 @@ function InputBox(props) {
             <option value="Room3">Room3</option>
             <option value="Room4">Room4</option>
           </select>
-          <input
+          {/*<input
             id="user"
             name="user"
             className="textInput"
             type="text"
             value={inputs.user || "User"}
             onChange={handleChange}
-          />
+          />*/}
           <select id="customer" name="customer" onChange={handleChange}>
             <option value="Chose Customer">Chose Customer</option>
             <option value="New customer">New customer</option>

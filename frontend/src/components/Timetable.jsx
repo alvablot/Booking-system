@@ -80,26 +80,28 @@ function Timetable(props) {
 
   return (
     <div id="timetable-wrap">
-      <button
+      <div className="time-table-head">
+      <button id="button-prev"
         onClick={() => {
           setThisWeek(thisWeek - 7);
         }}
       >
         Previous
       </button>
-      <span style={{ padding: "5px" }}>
+      <div id="date-prev">
         {" "}
         Year: {yearList[-TotalDays].year} Month:{" "}
         {yearList[-TotalDays + thisWeek].month} Date:{" "}
         {yearList[-TotalDays + thisWeek].date}{" "}
-      </span>
-      <button
+      </div>
+      <button id="button-next"
         onClick={() => {
           setThisWeek(thisWeek + 7);
         }}
       >
         Next
       </button>
+      </div>
       <table className="timetable">
         <thead>
           <tr className="dayRow">

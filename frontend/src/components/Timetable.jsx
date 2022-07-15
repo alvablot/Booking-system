@@ -14,18 +14,44 @@ function Timetable(props) {
   const [month, setMonth] = useRecoilState(monthState);
   const [year, setYear] = useRecoilState(yearState);
   const [date, setDate] = useRecoilState(dateState);
-  const [thisMonday, setThisMonday] = useState(date);
-  let [inputBox, setInputBox] = useRecoilState(inputBoxState);
+  let [thisMonday, setThisMonday] = useState(date);
 
-  setWeek(parseInt(week));
-  function handleTimeClick(year, month, obj, time) {
-    let strDate = obj.id;
-    if (obj.id.toString().length < 2) strDate = "0" + strDate;
-    if (month.toString().length < 2) month = "0" + month;
+  const [thisWeek, setThisWeek] = useState(0);
+
+  let [inputBox, setInputBox] = useRecoilState(inputBoxState);
+  let [days, setDays] = useState([]);
+
+  for (let i = 0; i < 7; i++) {
+    if (days[i] > 31) {
+      days[i] = 1 + i;
+    } else days[i] = parseInt(thisMonday.date) + thisWeek + i;
+  }
+  useEffect(() => {
+    setThisWeek(thisWeek);
+  }, [thisWeek]);
+
+  //setWeek(parseInt(week));
+  function handleTimeClick(year, month, obj, date, hour, minute) {
+    let strMonth = month;
+    let strDate = date;
+    if (strMonth.toString().length < 2) strMonth = "0" + strMonth;
+    if (strDate.toString().length < 2) strDate = "0" + strDate;
+    const dateStamp = `${year}-${strMonth}-${strDate}`;
+
+    let strHour = hour;
+    let strMinute = minute;
+    if (strHour.toString().length < 2) strHour = "0" + strHour;
+    if (strMinute.toString().length < 2) strMinute = "0" + strMinute;
+    const time = `${strHour}:${strMinute}`;
+    //if (month.toString().length < 2) month = "0" + month;
+
     setDate({
+      dateStamp: dateStamp,
       year: year,
       month: month,
-      date: strDate,
+      date: obj.id,
+      hour: hour,
+      minute: minute,
       time: time,
       day: date.day,
     });
@@ -37,23 +63,36 @@ function Timetable(props) {
 
   useEffect(() => {
     setDate(date);
-    //setInputBox("block");
   }, [date]);
 
   return (
     <div id="timetable-wrap">
-      Date: {week} Month: {month} Year: {year}
+      <button
+        onClick={() => {
+          setThisWeek(thisWeek - 7);
+        }}
+      >
+        Previous
+      </button>
+      <span style={{padding: "5px"}}> Year: {year} Month: {month} Date: {week} </span>
+      <button
+        onClick={() => {
+          setThisWeek(thisWeek + 7);
+        }}
+      >
+        Next
+      </button>
       <table className="timetable">
         <thead>
           <tr className="dayRow">
             <td className="time">Time</td>
-            <td className="day">Monday {thisMonday.date}</td>
-            <td className="day">Tuesday {parseInt(thisMonday.date) + 1}</td>
-            <td className="day">Wednesday {parseInt(thisMonday.date) + 2}</td>
-            <td className="day">Thirsday {parseInt(thisMonday.date) + 3}</td>
-            <td className="day">Friday {parseInt(thisMonday.date) + 4}</td>
-            <td className="day">Saturday {parseInt(thisMonday.date) + 5}</td>
-            <td className="day">Sunday {parseInt(thisMonday.date) + 6}</td>
+            <td className="day">Monday {days[0]}</td>
+            <td className="day">Tuesday {days[1]}</td>
+            <td className="day">Wednesday {days[2]}</td>
+            <td className="day">Thursday {days[3]}</td>
+            <td className="day">Friday {days[4]}</td>
+            <td className="day">Saturday {days[5]}</td>
+            <td className="day">Sunday {days[6]}</td>
           </tr>
         </thead>
         <tbody>
@@ -63,55 +102,24 @@ function Timetable(props) {
                 <td className="time" key={`time${item}`}>
                   {item}
                 </td>
-                <td
-                  className="day"
-                  id={thisMonday.date}
-                  onClick={(e) => {
-                    handleTimeClick(date.year, date.month, e.target, item);
-                  }}
-                ></td>
-                <td
-                  className="day"
-                  id={thisMonday.date + 1}
-                  onClick={(e) => {
-                    handleTimeClick(date.year, date.month, e.target, item);
-                  }}
-                ></td>
-                <td
-                  className="day"
-                  id={thisMonday.date + 2}
-                  onClick={(e) => {
-                    handleTimeClick(date.year, date.month, e.target, item);
-                  }}
-                ></td>
-                <td
-                  className="day"
-                  id={thisMonday.date + 3}
-                  onClick={(e) => {
-                    handleTimeClick(date.year, date.month, e.target, item);
-                  }}
-                ></td>
-                <td
-                  className="day"
-                  id={thisMonday.date + 4}
-                  onClick={(e) => {
-                    handleTimeClick(date.year, date.month, e.target, item);
-                  }}
-                ></td>
-                <td
-                  className="day"
-                  id={thisMonday.date + 5}
-                  onClick={(e) => {
-                    handleTimeClick(date.year, date.month, e.target, item);
-                  }}
-                ></td>
-                <td
-                  className="day"
-                  id={thisMonday.date + 6}
-                  onClick={(e) => {
-                    handleTimeClick(date.year, date.month, e.target, item);
-                  }}
-                ></td>
+                {days.map((day, numberOfDays) => {
+                  return (
+                    <td  key={`timeCell${day}`}
+                      className="day"
+                      id={days[numberOfDays]}
+                      onClick={(e) => {
+                        handleTimeClick(
+                          date.year,
+                          date.month,
+                          e.target,
+                          date.date,
+                          i,
+                          0
+                        );
+                      }}
+                    ></td>
+                  );
+                })}
               </tr>
             );
           })}

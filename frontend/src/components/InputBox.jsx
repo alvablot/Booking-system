@@ -3,20 +3,13 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { allBookingsState } from "../recoil/allBookings/atom";
 import { dateState } from "../recoil/date/atom";
 import { inputBoxState } from "../recoil/inputBox/atom";
-
-const now = new Date();
-const year = now.getYear();
-let month = now.getMonth();
-let date = now.getDate();
-const hour = now.getHours();
-if (month < 10) month = "0" + month;
-if (date < 10) date = "0" + date;
-const dateStamp = `${year + 1900}-${month}-${date}`;
+import dateList from "../dateList.json";
 
 function InputBox(props) {
+  
+  console.log(dateList);
   const [date, setDate] = useRecoilState(dateState);
   let [inputBox, setInputBox] = useRecoilState(inputBoxState);
-
   const [inputs, setInputs] = useState({});
 
   const handleChange = (event) => {
@@ -27,7 +20,6 @@ function InputBox(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     props.addBooking(inputs);
   };
 
@@ -61,15 +53,14 @@ function InputBox(props) {
           From
         </label>
         <input
-          type="date"
+          type="text"
           id="startDate"
           name="startDate"
           value={inputs.startDate || `${date.year}-${date.month}-${date.date}`}
           onChange={handleChange}
         />
-        <label htmlFor="startTime">Select a time:</label>
         <input
-          type="time"
+          type="text"
           id="startTime"
           name="startTime"
           value={inputs.startTime || date.time}
@@ -80,15 +71,14 @@ function InputBox(props) {
           To
         </label>
         <input
-          type="date"
+          type="text"
           id="stopDate"
           name="stopDate"
           value={inputs.stopDate || `${date.year}-${date.month}-${date.date}`}
           onChange={handleChange}
         />
-        <label htmlFor="stopTime">Select a time:</label>
         <input
-          type="time"
+          type="text"
           id="stopTime"
           name="stopTime"
           value={inputs.stopTime || date.time}

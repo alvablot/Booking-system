@@ -7,6 +7,7 @@ import { monthState } from "../recoil/month/atom";
 import { yearState } from "../recoil/year/atom";
 import { dateState } from "../recoil/date/atom";
 import { inputBoxState } from "../recoil/inputBox/atom";
+import yearArray from "../yearArray.json";
 
 function Timetable(props) {
   const [allTime, setAllTime] = useRecoilState(allTimeState);
@@ -15,6 +16,19 @@ function Timetable(props) {
   const [year, setYear] = useRecoilState(yearState);
   const [date, setDate] = useRecoilState(dateState);
   let [thisMonday, setThisMonday] = useState(date);
+  let yearList = [...yearArray];
+
+  let date_1 = new Date("01/01/2022");
+  let date_2 = new Date();
+  let difference = date_1.getTime() - date_2.getTime();
+  let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
+
+  console.log(yearList[-TotalDays].monthInt);
+  /*
+  console.log(yearList[-TotalDays].year);
+  console.log(yearList[-TotalDays].month);
+  console.log(yearList[-TotalDays].date);
+*/
 
   const [thisWeek, setThisWeek] = useState(0);
 
@@ -22,9 +36,7 @@ function Timetable(props) {
   let [days, setDays] = useState([]);
 
   for (let i = 0; i < 7; i++) {
-    if (days[i] > 31) {
-      days[i] = 1 + i;
-    } else days[i] = parseInt(thisMonday.date) + thisWeek + i;
+    days[i] = yearList[-TotalDays + thisWeek + i].date;
   }
   useEffect(() => {
     setThisWeek(thisWeek);
@@ -37,6 +49,7 @@ function Timetable(props) {
     if (strMonth.toString().length < 2) strMonth = "0" + strMonth;
     if (strDate.toString().length < 2) strDate = "0" + strDate;
     const dateStamp = `${year}-${strMonth}-${strDate}`;
+    console.log(month);
 
     let strHour = hour;
     let strMinute = minute;
@@ -74,7 +87,12 @@ function Timetable(props) {
       >
         Previous
       </button>
-      <span style={{padding: "5px"}}> Year: {year} Month: {month} Date: {week} </span>
+      <span style={{ padding: "5px" }}>
+        {" "}
+        Year: {yearList[-TotalDays].year} Month:{" "}
+        {yearList[-TotalDays + thisWeek].month} Date:{" "}
+        {yearList[-TotalDays + thisWeek].date}{" "}
+      </span>
       <button
         onClick={() => {
           setThisWeek(thisWeek + 7);
@@ -104,15 +122,16 @@ function Timetable(props) {
                 </td>
                 {days.map((day, numberOfDays) => {
                   return (
-                    <td  key={`timeCell${day}`}
+                    <td
+                      key={`timeCell${day}`}
                       className="day"
                       id={days[numberOfDays]}
                       onClick={(e) => {
                         handleTimeClick(
-                          date.year,
-                          date.month,
+                          yearList[-TotalDays].year,
+                          yearList[-TotalDays + thisWeek].monthInt,
                           e.target,
-                          date.date,
+                          days[numberOfDays],
                           i,
                           0
                         );

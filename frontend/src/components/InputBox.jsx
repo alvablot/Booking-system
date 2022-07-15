@@ -6,8 +6,6 @@ import { inputBoxState } from "../recoil/inputBox/atom";
 import dateList from "../dateList.json";
 
 function InputBox(props) {
-  
-  console.log(dateList);
   const [date, setDate] = useRecoilState(dateState);
   let [inputBox, setInputBox] = useRecoilState(inputBoxState);
   const [inputs, setInputs] = useState({});

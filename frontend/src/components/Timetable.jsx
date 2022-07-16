@@ -23,7 +23,7 @@ function Timetable(props) {
   let difference = date_1.getTime() - date_2.getTime();
   let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
 
-  console.log(yearList[-TotalDays].monthInt);
+  //console.log(yearList[-TotalDays].monthInt);
   /*
   console.log(yearList[-TotalDays].year);
   console.log(yearList[-TotalDays].month);
@@ -36,7 +36,7 @@ function Timetable(props) {
   let [days, setDays] = useState([]);
 
   for (let i = 0; i < 7; i++) {
-    days[i] = yearList[-TotalDays + thisWeek + i].date;
+    days[i] = yearList[-TotalDays + thisWeek + i - date.day].date;
   }
   useEffect(() => {
     setThisWeek(thisWeek);
@@ -81,38 +81,40 @@ function Timetable(props) {
   return (
     <div id="timetable-wrap">
       <div className="time-table-head">
-      <button id="button-prev"
-        onClick={() => {
-          setThisWeek(thisWeek - 7);
-        }}
-      >
-        Previous
-      </button>
-      <div id="date-prev">
-        {" "}
-        Year: {yearList[-TotalDays].year} Month:{" "}
-        {yearList[-TotalDays + thisWeek].month} Date:{" "}
-        {yearList[-TotalDays + thisWeek].date}{" "}
-      </div>
-      <button id="button-next"
-        onClick={() => {
-          setThisWeek(thisWeek + 7);
-        }}
-      >
-        Next
-      </button>
+        <button
+          id="button-prev"
+          onClick={() => {
+            setThisWeek(thisWeek - 7);
+          }}
+        >
+          Previous
+        </button>
+        <div id="date-prev">
+          {" "}
+          Year: {yearList[-TotalDays].year} Month:{" "}
+          {yearList[-TotalDays + thisWeek].month} Date:{" "}
+          {yearList[-TotalDays + thisWeek].date}{" "}
+        </div>
+        <button
+          id="button-next"
+          onClick={() => {
+            setThisWeek(thisWeek + 7);
+          }}
+        >
+          Next
+        </button>
       </div>
       <table className="timetable">
         <thead>
           <tr className="dayRow">
             <td className="time">Time</td>
-            <td className="day">Monday {days[0]}</td>
-            <td className="day">Tuesday {days[1]}</td>
-            <td className="day">Wednesday {days[2]}</td>
-            <td className="day">Thursday {days[3]}</td>
-            <td className="day">Friday {days[4]}</td>
-            <td className="day">Saturday {days[5]}</td>
-            <td className="day">Sunday {days[6]}</td>
+            <td className="dayHead">Monday {days[0]}</td>
+            <td className="dayHead">Tuesday {days[1]}</td>
+            <td className="dayHead">Wednesday {days[2]}</td>
+            <td className="dayHead">Thursday {days[3]}</td>
+            <td className="dayHead">Friday {days[4]}</td>
+            <td className="dayHead">Saturday {days[5]}</td>
+            <td className="dayHead">Sunday {days[6]}</td>
           </tr>
         </thead>
         <tbody>

@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { allBookingsState } from "../recoil/allBookings/atom";
+import { allBookingsState} from "../recoil/allBookings/atom";
+
 
 function Bookings(props) {
-  let { allBookings } = props;
+  //let { allBookings } = props;
+ let [allBookings, setAllBookings] = useRecoilState(allBookingsState);
   props.fetchBookings();
   function handleDelete(id) {
     props.deleteBooking(id);
   }
   return (
     <div className="list">
-      <h1>Bookings</h1>
+      <div className="headline">Bookings</div>
       {allBookings.map((item, i) => {
         return (
           <div key={`book${item.id}`} className="booking">
